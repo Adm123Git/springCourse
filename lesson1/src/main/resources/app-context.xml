@@ -4,7 +4,7 @@
 			 xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
 	<bean id="serviceCSV"
-				class="ru.adm123.springCourse.lesson1.service.resource.impl.ServiceResourceCSV">
+				class="ru.adm123.springCourse.lesson1.service.resource.impl.ServiceResourceQuestionCSV">
 		<constructor-arg name="fileName" value="questions.csv"/>
 	</bean>
 
