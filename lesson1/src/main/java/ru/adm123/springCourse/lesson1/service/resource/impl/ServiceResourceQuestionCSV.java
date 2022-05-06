@@ -5,12 +5,13 @@ import com.opencsv.exceptions.CsvValidationException;
 import ru.adm123.springCourse.lesson1.model.Question;
 import ru.adm123.springCourse.lesson1.service.resource.ServiceResource;
 
-import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.net.URL;
-import java.nio.file.Path;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+
+import static ru.adm123.springCourse.lesson1.util.UtilString.hasText;
 
 /**
  * Реализация интерфейса {@link ServiceResource}, обеспечивающая работу с объектами {@link Question}, заданными в CSV-файле
@@ -25,6 +26,9 @@ public class ServiceResourceQuestionCSV implements ServiceResource<Question> {
 
     @Override
     public List<Question> getAll() {
+        if (!hasText(fileName)) {
+            throw new RuntimeException("File not found");
+        }
         List<Question> questions = new ArrayList<>();
         URL fileURL = getClass().getResource("/" + fileName);
         if (fileURL == null) {
