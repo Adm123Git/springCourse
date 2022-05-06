@@ -10,9 +10,13 @@ import java.util.List;
 public class Application {
 
     public static void main(String[] args) {
-        ClassPathXmlApplicationContext applicationContext = new ClassPathXmlApplicationContext("app-context.xml");
-        List<Question> questionList = applicationContext.getBean(ServiceResourceQuestionCSV.class).getAll();
-        applicationContext.getBean(PrinterImplConsole.class).printAll(questionList);
+        ClassPathXmlApplicationContext applicationContext = new ClassPathXmlApplicationContext("/app-context.xml");
+        List<Question> questionList = applicationContext
+                .getBean(ServiceResourceQuestionCSV.class)
+                .getAll();
+        applicationContext
+                .getBean(PrinterImplConsole.class)
+                .printAll(questionList);
     }
 
 }
