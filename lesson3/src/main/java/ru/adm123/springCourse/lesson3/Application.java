@@ -1,13 +1,17 @@
-package ru.adm123.springCourse.lesson2;
+package ru.adm123.springCourse.lesson3;
 
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.annotation.ComponentScan;
-import ru.adm123.springCourse.lesson2.model.Question;
-import ru.adm123.springCourse.lesson2.model.Test;
-import ru.adm123.springCourse.lesson2.service.business.ServiceStudentTest;
-import ru.adm123.springCourse.lesson2.service.resource.ServiceResource;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.EnableAspectJAutoProxy;
+import ru.adm123.springCourse.lesson3.model.Question;
+import ru.adm123.springCourse.lesson3.model.Test;
+import ru.adm123.springCourse.lesson3.service.business.ServiceStudentTest;
+import ru.adm123.springCourse.lesson3.service.resource.ServiceResource;
 
 @ComponentScan
+@Configuration
+@EnableAspectJAutoProxy
 public class Application {
 
     public static void main(String[] args) {
