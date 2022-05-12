@@ -12,6 +12,7 @@
 	<packaging>jar</packaging>
 
 	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<java.version>17</java.version>
 		<maven.compiler.source>17</maven.compiler.source>
 		<maven.compiler.target>17</maven.compiler.target>
@@ -41,32 +42,17 @@
 			<artifactId>opencsv</artifactId>
 			<version>${opencsv.version}</version>
 		</dependency>
-<!--		<dependency>-->
-<!--			<groupId>org.springframework</groupId>-->
-<!--			<artifactId>spring-aop</artifactId>-->
-<!--			<version>5.3.19</version>-->
-<!--		</dependency>-->
-
 		<dependency>
 			<groupId>org.aspectj</groupId>
 			<artifactId>aspectjrt</artifactId>
 			<version>${aspectj.version}</version>
 			<scope>runtime</scope>
 		</dependency>
-<!--		<dependency>-->
-<!--			<groupId>org.aspectj</groupId>-->
-<!--			<artifactId>aspectjweaver</artifactId>-->
-<!--			<version>${aspectj.version}</version>-->
-<!--			<scope>runtime</scope>-->
-<!--		</dependency>-->
 		<dependency>
 			<groupId>org.aspectj</groupId>
 			<artifactId>aspectjtools</artifactId>
 			<version>${aspectj.version}</version>
 		</dependency>
-
-
-
 		<dependency>
 			<groupId>org.junit.jupiter</groupId>
 			<artifactId>junit-jupiter-engine</artifactId>
