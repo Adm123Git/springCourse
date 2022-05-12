@@ -1,0 +1,5 @@
+${AnsiColor.RED}*************************************
+${AnsiColor.BLUE}${AnsiStyle.BOLD}${AnsiStyle.UNDERLINE}STUDENT TESTING APPLICATION${AnsiStyle.NORMAL}${AnsiColor.DEFAULT}
+Working on SpringBoot ${spring-boot.version}
+${AnsiColor.RED}*************************************
+${AnsiColor.DEFAULT}

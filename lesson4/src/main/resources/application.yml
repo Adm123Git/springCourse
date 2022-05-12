@@ -1,0 +1,4 @@
+test:
+  bundle-name: /i18l/questions
+  question-list: questions.csv
+  offset-limit: 3
