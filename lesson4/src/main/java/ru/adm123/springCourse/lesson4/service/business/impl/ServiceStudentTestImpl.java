@@ -25,7 +25,6 @@ public class ServiceStudentTestImpl implements ServiceStudentTest {
 
     private final TestParam testParam;
     private final ServiceBundleResource serviceBundleResourceTestMessageImpl;
-    private final ServiceBundleResource serviceBundleResourceSystemMessageImpl;
     private final ServiceBundleResource serviceBundleResourceQuestionImpl;
     private final Scanner scanner = new Scanner(System.in);
     private final Printer printer;
@@ -35,12 +34,10 @@ public class ServiceStudentTestImpl implements ServiceStudentTest {
     @Autowired
     public ServiceStudentTestImpl(TestParam testParam,
                                   ServiceBundleResource serviceBundleResourceTestMessageImpl,
-                                  ServiceBundleResource serviceBundleResourceSystemMessageImpl,
                                   ServiceBundleResource serviceBundleResourceQuestionImpl,
                                   Printer printer) {
         this.testParam = testParam;
         this.serviceBundleResourceTestMessageImpl = serviceBundleResourceTestMessageImpl;
-        this.serviceBundleResourceSystemMessageImpl = serviceBundleResourceSystemMessageImpl;
         this.serviceBundleResourceQuestionImpl = serviceBundleResourceQuestionImpl;
         this.printer = printer;
         this.testMessageMap.put("studentResult", serviceBundleResourceTestMessageImpl.getString("studentResult"));
@@ -81,18 +78,18 @@ public class ServiceStudentTestImpl implements ServiceStudentTest {
     private List<Question> getQuestionList() {
         String fileName = testParam.getQuestionList();
         if (!UtilString.hasText(fileName)) {
-            throw new RuntimeException(serviceBundleResourceSystemMessageImpl.getString("fileNotFound"));
+            throw new RuntimeException("fileNotFound");
         }
         List<Question> questions = new ArrayList<>();
         URL fileURL = getClass().getResource("/" + fileName);
         if (fileURL == null) {
-            throw new RuntimeException(serviceBundleResourceSystemMessageImpl.getString("fileNotFound"));
+            throw new RuntimeException("fileNotFound");
         }
         try (CSVReader csvReader = new CSVReader(new FileReader(fileURL.getFile()))) {
             String[] csvLine;
             while ((csvLine = csvReader.readNext()) != null) {
                 if (csvLine.length != 2) {
-                    throw new RuntimeException(serviceBundleResourceSystemMessageImpl.getString("fileFormatError"));
+                    throw new RuntimeException("fileFormatError");
                 }
                 questions.add(new Question(serviceBundleResourceQuestionImpl.getString(csvLine[0]), csvLine[1]));
             }

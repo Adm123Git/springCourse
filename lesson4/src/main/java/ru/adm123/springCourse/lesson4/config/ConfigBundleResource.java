@@ -33,12 +33,4 @@ public class ConfigBundleResource {
         return ms;
     }
 
-    @Bean
-    public MessageSource systemMessageSource() {
-        ReloadableResourceBundleMessageSource ms = new ReloadableResourceBundleMessageSource();
-        ms.setBasename("/i18l/systemMessages");
-        ms.setDefaultEncoding("UTF-8");
-        return ms;
-    }
-
 }
