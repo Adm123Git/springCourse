@@ -3,9 +3,11 @@ package ru.adm123.springCourse.lesson4.aspect;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
+import org.springframework.stereotype.Component;
 import ru.adm123.springCourse.lesson4.aspect.anno.LogExecuteTime;
 
 @Aspect
+@Component
 public class AspectLog {
 
     @Around("@annotation(logExecuteTime)")

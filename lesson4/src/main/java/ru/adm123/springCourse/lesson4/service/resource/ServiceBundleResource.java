@@ -30,11 +30,7 @@ public interface ServiceBundleResource {
     @Nullable
     default String getString(MessageSource messageSource,
                              String key) {
-        try {
-            return messageSource.getMessage(key, new Object[]{}, Locale.getDefault());
-        } catch (NoSuchMessageException e) {
-            return null;
-        }
+        return getString(messageSource, key, Locale.getDefault());
     }
 
     /**
@@ -49,6 +45,9 @@ public interface ServiceBundleResource {
     default String getString(MessageSource messageSource,
                              String key,
                              Locale locale) {
+        if (messageSource == null) {
+            throw new RuntimeException("messageSource is null");
+        }
         try {
             return messageSource.getMessage(key, new Object[]{}, locale);
         } catch (NoSuchMessageException e) {

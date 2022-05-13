@@ -3,7 +3,9 @@ package ru.adm123.springCourse.lesson4.service.business.impl;
 import com.opencsv.CSVReader;
 import com.opencsv.exceptions.CsvValidationException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Service;
+import ru.adm123.springCourse.lesson4.aspect.anno.LogExecuteTime;
 import ru.adm123.springCourse.lesson4.model.Question;
 import ru.adm123.springCourse.lesson4.model.Test;
 import ru.adm123.springCourse.lesson4.model.TestParam;
@@ -23,6 +25,7 @@ import java.util.*;
 @Service
 public class ServiceStudentTestImpl implements ServiceStudentTest {
 
+    private final ApplicationContext applicationContext;
     private final TestParam testParam;
     private final ServiceBundleResource serviceBundleResourceTestMessageImpl;
     private final ServiceBundleResource serviceBundleResourceQuestionImpl;
@@ -30,9 +33,9 @@ public class ServiceStudentTestImpl implements ServiceStudentTest {
     private final Printer printer;
     private final Map<String, String> testMessageMap = new HashMap<>();
 
-
     @Autowired
-    public ServiceStudentTestImpl(TestParam testParam,
+    public ServiceStudentTestImpl(ApplicationContext applicationContext,
+                                  TestParam testParam,
                                   ServiceBundleResource serviceBundleResourceTestMessageImpl,
                                   ServiceBundleResource serviceBundleResourceQuestionImpl,
                                   Printer printer) {
@@ -40,6 +43,7 @@ public class ServiceStudentTestImpl implements ServiceStudentTest {
         this.serviceBundleResourceTestMessageImpl = serviceBundleResourceTestMessageImpl;
         this.serviceBundleResourceQuestionImpl = serviceBundleResourceQuestionImpl;
         this.printer = printer;
+        this.applicationContext = applicationContext;
         this.testMessageMap.put("studentResult", serviceBundleResourceTestMessageImpl.getString("studentResult"));
         this.testMessageMap.put("testResultOK", serviceBundleResourceTestMessageImpl.getString("testResultOK"));
         this.testMessageMap.put("testResultFAIL", serviceBundleResourceTestMessageImpl.getString("testResultFAIL"));
@@ -55,7 +59,9 @@ public class ServiceStudentTestImpl implements ServiceStudentTest {
         String greeting = serviceBundleResourceTestMessageImpl.getString("greeting");
         assert greeting != null;
         System.out.println(String.format(greeting, studentName));
-        return new Test(studentName, getOffsetLimit(), testMessageMap, getQuestionList());
+        // Финт, чтобы сработала аннотация на методе getQuestionList()
+        List<Question> questions = applicationContext.getBean(getClass()).getQuestionList();
+        return new Test(studentName, getOffsetLimit(), testMessageMap, questions);
     }
 
     @Override
@@ -71,11 +77,9 @@ public class ServiceStudentTestImpl implements ServiceStudentTest {
         printer.print(test);
     }
 
-    private int getOffsetLimit() {
-        return testParam.getOffsetLimit();
-    }
-
-    private List<Question> getQuestionList() {
+    @Override
+    @LogExecuteTime
+    public List<Question> getQuestionList() {
         String fileName = testParam.getQuestionList();
         if (!UtilString.hasText(fileName)) {
             throw new RuntimeException("fileNotFound");
@@ -97,6 +101,10 @@ public class ServiceStudentTestImpl implements ServiceStudentTest {
             throw new RuntimeException(e);
         }
         return questions;
+    }
+
+    private int getOffsetLimit() {
+        return testParam.getOffsetLimit();
     }
 
     private void proceedQuestion(Test test,
