@@ -13,9 +13,12 @@ public interface ServiceStudentTest {
     /**
      * Формирует новый объект {@link Test}
      *
+     * @param questions   коллекция объектов {@link Question}, которые будут "участниками" теста
+     * @param offsetLimit минимальное количество верных ответов, необходимое для зачета
      * @return готовый объект {@link Test}
      */
-    Test getNewStudentTest();
+    Test getNewStudentTest(List<Question> questions,
+                           int offsetLimit);
 
     /**
      * Показывает и обрабатывает ответ на очередной вопрос теста
@@ -30,12 +33,5 @@ public interface ServiceStudentTest {
      * @param test объект {@link Test}, результаты которого выводятся
      */
     void printResult(Test test);
-
-    /**
-     * Вывод списка вопросов-ответов теста
-     *
-     * @return {@link List} объектов {@link Question}
-     */
-    List<Question> getQuestionList();
 
 }
